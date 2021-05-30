@@ -1,9 +1,26 @@
+const { Pool } = require('pg');
+const { parse } = require('pg-connection-string')
 const express = require("express");
 const fetch = require("node-fetch");
 const cors = require("cors");
-
+const connectionString = process.env.DATABASE_URL;
+const config = parse(connectionString)
 const app = express();
 app.use(cors());
+
+config.ssl = {
+  rejectUnauthorized: false
+}
+const pool = new Pool(config)
+
+pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values ($1, $2, $3, $4, $5)', ["29", "9:00","quebec","hola","514717"], 
+    function(err, result){
+        if (err){
+            console.log(err);
+        }else {
+            console.log(result);
+        }
+    });
 
 app.get("/products", (req, res) => {
     fetch("https://tlaloc-debug-dev.myshopify.com/admin/api/graphql.json", {
