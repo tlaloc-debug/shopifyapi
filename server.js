@@ -13,7 +13,7 @@ config.ssl = {
 }
 const pool = new Pool(config)
 
-pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values ($1, $2, $3, $4, $5)', ["29", "9:00","quebec","hola","514717"], 
+pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values ($1, $2, $3, $4, $5, $6)', ["29", "9:00","quebec","erick","hola","514717"], 
     function(err, result){
         if (err){
             console.log(err);
