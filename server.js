@@ -15,6 +15,8 @@ config.ssl = {
 }
 const pool = new Pool(config)
 
+let searchdate;
+
 app.post("/bookappointment", (req, res) => {
   appointmentdate = req.body.appointmentdate;
   appointmenttime = req.body.appointmenttime;
@@ -35,8 +37,19 @@ pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values 
   app.post("/searchdate", (req, res) => {
     searchdate = req.body.searchdate;
     console.log(searchdate)
- 
+    res.send("done");
     })
+
+    app.get("/resultdate", (req, res) => {
+      pool.query("select time from apointment where date like $1", [searchdate], function(err, result) {
+          // If an error occurred...
+          if (err) {
+              console.log("Error in query: ")
+              console.log(err);
+          }
+          res.send(result.rows);
+      });  
+  });
 
 app.get("/products", (req, res) => {
     fetch("https://tlaloc-debug-dev.myshopify.com/admin/api/graphql.json", {
