@@ -41,7 +41,9 @@ pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values 
     })
 
     app.get("/resultdate", (req, res) => {
-      pool.query("select time from apointment where date like $1", [searchdate], function(err, result) {
+      formatdate=searchdate.slice(0,11);
+      formatdate=formatdate+"%";
+      pool.query("select time from apointment where date like $1", [formatdate], function(err, result) {
           // If an error occurred...
           if (err) {
               console.log("Error in query: ")
