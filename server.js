@@ -13,7 +13,14 @@ config.ssl = {
 }
 const pool = new Pool(config)
 
-pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values ($1, $2, $3, $4, $5, $6)', ["29", "9:00","quebec","erick","hola","514717"], 
+app.post("/bookappointment", (req, res) => {
+  appointmentdate = req.body.appointmentdate;
+  appointmenttime = req.body.appointmenttime;
+  appointmentlocation = req.body.appointmentlocation;
+  appointmentname = req.body.appointmentname;
+  appointmentemail = req.body.appointmentemail;
+  appointmentphone = req.body.appointmentphone;
+pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values ($1, $2, $3, $4, $5, $6)', [appointmentdate, appointmenttime, appointmentlocation, appointmentname, appointmentemail, appointmentphone], 
     function(err, result){
         if (err){
             console.log(err);
@@ -21,6 +28,7 @@ pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values 
             console.log(result);
         }
     });
+  })
 
 app.get("/products", (req, res) => {
     fetch("https://tlaloc-debug-dev.myshopify.com/admin/api/graphql.json", {
