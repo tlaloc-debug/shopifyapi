@@ -27,9 +27,9 @@ app.post("/bookappointment", (req, res) => {
 pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values ($1, $2, $3, $4, $5, $6)', [appointmentdate, appointmenttime, appointmentlocation, appointmentname, appointmentemail, appointmentphone], 
     function(err, result){
         if (err){
-            console.log(err);
+            res.send(err);
         }else {
-            console.log(result);
+            res.send(result);
         }
     });
   })
@@ -46,8 +46,8 @@ pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values 
       pool.query("select time from apointment where date like $1", [formatdate], function(err, result) {
           // If an error occurred...
           if (err) {
-              console.log("Error in query: ")
-              console.log(err);
+              res.send("Error in query: ")
+              res.send(err);
           }
           res.send(result.rows);
       });  
