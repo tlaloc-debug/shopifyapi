@@ -32,6 +32,12 @@ pool.query('INSERT INTO apointment (date,time,location,name,email,phone) values 
     });
   })
 
+  app.post("/searchdate", (req, res) => {
+    searchdate = req.body.searchdate;
+    console.log(searchdate)
+ 
+    })
+
 app.get("/products", (req, res) => {
     fetch("https://tlaloc-debug-dev.myshopify.com/admin/api/graphql.json", {
       method: "POST",
