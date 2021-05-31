@@ -1,12 +1,14 @@
 const { Pool } = require('pg');
 const { parse } = require('pg-connection-string')
 const express = require("express");
+const bodyparser = require("body-parser");
 const fetch = require("node-fetch");
 const cors = require("cors");
 const connectionString = process.env.DATABASE_URL;
 const config = parse(connectionString)
 const app = express();
 app.use(cors());
+app.use(bodyparser.json());
 
 config.ssl = {
   rejectUnauthorized: false
